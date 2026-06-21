@@ -311,8 +311,10 @@
         transform: none;
       }
       .project-media img {
-        width: 100%;
-        height: 100%;
+        position: absolute;
+        inset: 24px;
+        width: calc(100% - 48px);
+        height: calc(100% - 48px);
         object-fit: contain;
         object-position: center;
         border: 1px solid rgba(248, 238, 231, 0.16);
@@ -426,9 +428,10 @@
       .project-list { display: grid; gap: 34px; }
       .project-card {
         position: relative;
-        min-height: 690px;
+        min-height: 0;
         display: grid;
         grid-template-columns: 96px minmax(430px, 0.92fr) minmax(560px, 1.08fr);
+        align-items: center;
         gap: 34px;
         padding: 34px;
         border: 1px solid var(--line);
@@ -513,21 +516,25 @@
         line-height: 1.7;
       }
       .project-media {
-        height: 622px;
+        height: clamp(430px, 31vw, 540px);
         display: grid;
         place-items: center;
-        padding: 28px;
+        padding: 24px;
         background:
           radial-gradient(circle at 72% 18%, rgba(215, 25, 32, 0.22), transparent 24rem),
           linear-gradient(135deg, rgba(248, 238, 231, 0.07), rgba(248, 238, 231, 0.02)),
           #0d0203;
       }
+      .copy-media {
+        height: clamp(520px, 32vw, 600px);
+        padding: 22px;
+      }
       .copy-showcase {
         height: 100%;
         display: grid;
         grid-template-columns: 0.9fr 1.1fr;
-        gap: 22px;
-        padding: 32px;
+        gap: 18px;
+        padding: 24px;
         background:
           radial-gradient(circle at 70% 20%, rgba(215, 25, 32, 0.2), transparent 22rem),
           linear-gradient(135deg, rgba(248, 238, 231, 0.08), rgba(248, 238, 231, 0.025)),
@@ -537,9 +544,9 @@
         min-width: 0;
         display: grid;
         align-content: start;
-        gap: 14px;
+        gap: 10px;
       }
-      .copy-column.long { gap: 18px; }
+      .copy-column.long { gap: 14px; }
       .copy-label {
         color: var(--red-soft);
         font-size: 13px;
@@ -552,22 +559,22 @@
         border: 1px solid rgba(248, 238, 231, 0.16);
         background: rgba(248, 238, 231, 0.05);
       }
-      .slogan-card { padding: 18px 18px 16px; }
+      .slogan-card { padding: 13px 15px 12px; }
       .slogan-card blockquote {
         margin: 0;
         color: #fff8f3;
-        font-size: 22px;
+        font-size: 19px;
         font-weight: 650;
-        line-height: 1.25;
+        line-height: 1.22;
         letter-spacing: -0.02em;
       }
       .slogan-card figcaption {
-        margin-top: 12px;
+        margin-top: 8px;
         color: rgba(248, 238, 231, 0.62);
-        font-size: 13px;
-        line-height: 1.5;
+        font-size: 12px;
+        line-height: 1.35;
       }
-      .long-copy-card { padding: 22px; }
+      .long-copy-card { padding: 18px; }
       .long-copy-card h5 {
         margin: 0 0 14px;
         color: var(--red-soft);
@@ -577,9 +584,9 @@
       .long-copy-card p {
         margin: 0;
         color: rgba(248, 238, 231, 0.88);
-        font-size: 17px;
+        font-size: 15px;
         font-weight: 400;
-        line-height: 1.85;
+        line-height: 1.7;
       }
 
       .strength-grid {
@@ -941,11 +948,10 @@
               <div class="case-notes">
                 <div><span>Background</span><p>文案能力覆盖品牌植入、节点营销、景区品宣等不同语境，需要在短句记忆点与长文案情绪之间切换。</p></div>
                 <div><span>Insight / Strategy</span><p>用准确洞察建立表达支点，再用口语化、有画面感的句子压缩传播主题，让策略能被读到、记住并继续转述。</p></div>
-                <div><span>Data / Status</span><p>提炼呈现：Slogan 与长文案，社媒文案不展开</p></div>
               </div>
               <strong>Slogan / 植入概念 / 景区品宣长文案</strong>
             </div>
-            <div class="project-media reveal-media fit-media">
+            <div class="project-media reveal-media fit-media copy-media">
               <div class="copy-showcase">
                 <div class="copy-column">
                   <span class="copy-label">SLOGAN</span>
