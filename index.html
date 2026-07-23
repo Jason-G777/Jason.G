@@ -860,6 +860,14 @@
         </div>
       </section>
 
+      <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-inner">
+          <div class="bridge-meta"><span>NEXT CHAPTER</span><span>01</span></div>
+          <div class="bridge-progress"><span></span></div>
+          <div class="bridge-title-mask"><p class="bridge-title">PROFILE</p></div>
+        </div>
+      </div>
+
       <section class="section about" id="about">
         <div class="section-head">
           <p class="eyebrow">01 / PROFILE</p>
@@ -886,6 +894,14 @@
           </div>
         </div>
       </section>
+
+      <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-inner">
+          <div class="bridge-meta"><span>NEXT CHAPTER</span><span>02</span></div>
+          <div class="bridge-progress"><span></span></div>
+          <div class="bridge-title-mask"><p class="bridge-title">SELECTED WORK</p></div>
+        </div>
+      </div>
 
       <section class="section work" id="work">
         <div class="section-head centered-head">
@@ -980,6 +996,14 @@
         </div>
       </section>
 
+      <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-inner">
+          <div class="bridge-meta"><span>NEXT CHAPTER</span><span>03</span></div>
+          <div class="bridge-progress"><span></span></div>
+          <div class="bridge-title-mask"><p class="bridge-title">ABILITY</p></div>
+        </div>
+      </div>
+
       <section class="section strength" id="strength">
         <div class="section-head centered-head">
           <p class="eyebrow">03 / ABILITY</p>
@@ -992,6 +1016,14 @@
           <article class="strength-card stagger-item"><span>Execution</span><h3>执行统筹</h3><p>参与项目执行、会议主持、团队协作与结案方案，理解创意落地的真实阻力。</p></article>
         </div>
       </section>
+
+      <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-inner">
+          <div class="bridge-meta"><span>NEXT CHAPTER</span><span>04</span></div>
+          <div class="bridge-progress"><span></span></div>
+          <div class="bridge-title-mask"><p class="bridge-title">MANIFESTO</p></div>
+        </div>
+      </div>
 
       <section class="manifesto-section" id="manifesto">
         <div class="manifesto-copy stagger-item">
@@ -1007,6 +1039,14 @@
           <p>我希望自己能够像个「新生」，不断学习，时常出新。</p>
         </div>
       </section>
+
+      <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-inner">
+          <div class="bridge-meta"><span>NEXT CHAPTER</span><span>05</span></div>
+          <div class="bridge-progress"><span></span></div>
+          <div class="bridge-title-mask"><p class="bridge-title">LET'S TALK</p></div>
+        </div>
+      </div>
 
       <section class="contact-section" id="contact">
         <div class="contact-bg" aria-hidden="true"></div>
@@ -1153,6 +1193,39 @@
                 start: "top bottom",
                 end: "bottom top",
                 scrub: 0.8
+              }
+            }
+          );
+        });
+
+        gsap.utils.toArray(".section-bridge").forEach(function (bridge) {
+          var bridgeTitle = bridge.querySelector(".bridge-title");
+          var bridgeProgress = bridge.querySelector(".bridge-progress span");
+
+          gsap.fromTo(bridgeTitle,
+            { xPercent: isMobile ? 3 : 8 },
+            {
+              xPercent: isMobile ? -3 : -8,
+              ease: "none",
+              scrollTrigger: {
+                trigger: bridge,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.8
+              }
+            }
+          );
+
+          gsap.fromTo(bridgeProgress,
+            { scaleX: 0 },
+            {
+              scaleX: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: bridge,
+                start: "top 82%",
+                end: "bottom 28%",
+                scrub: 0.6
               }
             }
           );
