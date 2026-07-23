@@ -820,6 +820,7 @@
         .opening-panel { display: none; }
       }
     </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main>
@@ -833,7 +834,11 @@
         <div class="hero-bg" aria-hidden="true"><span></span><span></span><span></span></div>
         <nav class="nav" aria-label="主导航">
           <a href="#top" class="brand">Jason.G</a>
-          <div class="nav-links">
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="打开导航菜单">
+            <span></span>
+            <span></span>
+          </button>
+          <div class="nav-links" id="primary-navigation">
             <a href="#about">About me</a>
             <a href="#work">Case</a>
             <a href="#strength">Ability</a>
@@ -1017,20 +1022,39 @@
     <script src="vendor/ScrollTrigger.min.js"></script>
     <script>
       window.addEventListener("load", function () {
+        var nav = document.querySelector(".nav");
+        var menuToggle = document.querySelector(".menu-toggle");
+        var navLinks = document.querySelectorAll(".nav-links a");
+
+        function setMenu(open) {
+          nav.classList.toggle("is-open", open);
+          document.body.classList.toggle("menu-open", open);
+          menuToggle.setAttribute("aria-expanded", String(open));
+          menuToggle.setAttribute("aria-label", open ? "关闭导航菜单" : "打开导航菜单");
+        }
+
+        menuToggle.addEventListener("click", function () {
+          setMenu(menuToggle.getAttribute("aria-expanded") !== "true");
+        });
+        navLinks.forEach(function (link) {
+          link.addEventListener("click", function () { setMenu(false); });
+        });
+
         if (!window.gsap || !window.ScrollTrigger) return;
         gsap.registerPlugin(ScrollTrigger);
 
         var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (reduceMotion) return;
+        var isMobile = window.matchMedia("(max-width: 900px)").matches;
 
-        var opening = gsap.timeline({ defaults: { ease: "expo.out" } });
+        var opening = gsap.timeline({ defaults: { ease: "power3.out" } });
         opening
           .set(".opening-panel", { yPercent: 0 })
           .set(".hero-word .mask-line", { yPercent: 115, scaleY: 0.72 })
           .set(".nav, .hero-meta, .hero-cta, .hero-proof", { autoAlpha: 0, y: 24 })
           .to(".opening-mark", { y: 0, autoAlpha: 1, duration: 0.9, ease: "power3.out" })
-          .to(".opening-panel", { yPercent: -100, duration: 1.45, delay: 0.25 }, "<")
-          .to(".hero-word .mask-line", { yPercent: 0, scaleY: 1, duration: 1.35, stagger: 0.13 }, "-=0.85")
+          .to(".opening-panel", { yPercent: -100, duration: isMobile ? 0.95 : 1.25, delay: 0.18 }, "<")
+          .to(".hero-word .mask-line", { yPercent: 0, scaleY: 1, duration: isMobile ? 0.9 : 1.2, stagger: 0.13 }, "-=0.85")
           .to(".hero-bg", { scale: 1, filter: "blur(0px)", duration: 1.8 }, "-=1.4")
           .to(".nav, .hero-meta, .hero-cta, .hero-proof", { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.08, ease: "power3.out" }, "-=0.8");
 
@@ -1039,27 +1063,26 @@
           var cards = section.querySelectorAll(".stagger-item");
           if (title) {
             gsap.fromTo(title,
-              { xPercent: -18, y: 90, autoAlpha: 0, letterSpacing: "0.06em" },
+              { xPercent: isMobile ? -5 : -12, y: isMobile ? 36 : 64, autoAlpha: 0 },
               {
                 xPercent: 0,
                 y: 0,
                 autoAlpha: 1,
-                letterSpacing: "0em",
-                duration: 1.25,
-                ease: "expo.out",
+                duration: isMobile ? 0.78 : 1.05,
+                ease: "power3.out",
                 scrollTrigger: { trigger: section, start: "top 72%" }
               }
             );
           }
           if (cards.length) {
             gsap.fromTo(cards,
-              { y: 72, autoAlpha: 0, clipPath: "inset(18% 0% 0% 0%)" },
+              { y: isMobile ? 28 : 48, autoAlpha: 0, clipPath: "inset(10% 0% 0% 0%)" },
               {
                 y: 0,
                 autoAlpha: 1,
                 clipPath: "inset(0% 0% 0% 0%)",
-                duration: 1,
-                stagger: 0.12,
+                duration: isMobile ? 0.72 : 0.9,
+                stagger: isMobile ? 0.06 : 0.1,
                 ease: "power3.out",
                 scrollTrigger: { trigger: section, start: "top 64%" }
               }
@@ -1084,11 +1107,13 @@
           );
         });
 
-        gsap.to(".hero-bg", {
-          yPercent: 10,
-          ease: "none",
-          scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.7 }
-        });
+        if (!isMobile) {
+          gsap.to(".hero-bg", {
+            yPercent: 8,
+            ease: "none",
+            scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.7 }
+          });
+        }
       });
     </script>
   </body>
