@@ -827,25 +827,26 @@
       <div class="opening-panel" aria-hidden="true">
         <div class="opening-mark">JASON.G / Ⅶ</div>
       </div>
+      <div class="nav-reveal-zone" aria-hidden="true"></div>
+      <nav class="nav" aria-label="主导航">
+        <a href="#top" class="brand">Jason.G</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="打开导航菜单">
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links" id="primary-navigation">
+          <a href="#about">About me</a>
+          <a href="#work">Case</a>
+          <a href="#strength">Ability</a>
+          <a href="#contact">联系方式</a>
+        </div>
+        <a class="nav-contact" href="mailto:943094207@qq.com">联系方式</a>
+      </nav>
       <section class="hero" id="top">
         <video class="hero-video" autoplay muted loop playsinline poster="work/tandong-case.png">
           <source src="hero-loop.mp4" type="video/mp4" />
         </video>
         <div class="hero-bg" aria-hidden="true"><span></span><span></span><span></span></div>
-        <nav class="nav" aria-label="主导航">
-          <a href="#top" class="brand">Jason.G</a>
-          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="打开导航菜单">
-            <span></span>
-            <span></span>
-          </button>
-          <div class="nav-links" id="primary-navigation">
-            <a href="#about">About me</a>
-            <a href="#work">Case</a>
-            <a href="#strength">Ability</a>
-            <a href="#contact">联系方式</a>
-          </div>
-          <a class="nav-contact" href="mailto:943094207@qq.com">联系方式</a>
-        </nav>
         <div class="hero-inner">
           <p class="hero-meta">COPY / PLANNER / STRATEGY</p>
           <h1 class="hero-title" aria-label="广告新生 Creative Planner Portfolio">
@@ -1040,6 +1041,57 @@
           link.addEventListener("click", function () { setMenu(false); });
         });
 
+        var revealZone = document.querySelector(".nav-reveal-zone");
+        var hero = document.querySelector(".hero");
+        var desktopNav = window.matchMedia("(min-width: 901px) and (hover: hover)");
+        var navHideTimer;
+        var pointerInsideNav = false;
+
+        function isPastHero() {
+          return window.scrollY > hero.offsetHeight - 120;
+        }
+        function showNav() {
+          window.clearTimeout(navHideTimer);
+          nav.classList.remove("nav-away");
+        }
+        function hideNav() {
+          if (desktopNav.matches && isPastHero() && !pointerInsideNav) {
+            nav.classList.add("nav-away");
+          }
+        }
+        function scheduleNavHide() {
+          window.clearTimeout(navHideTimer);
+          navHideTimer = window.setTimeout(hideNav, 420);
+        }
+        function syncNav() {
+          if (!desktopNav.matches || !isPastHero()) showNav();
+          else hideNav();
+        }
+        function trackNavPointer(event) {
+          if (!desktopNav.matches || !isPastHero()) return;
+          if (event.clientY <= 92) showNav();
+          else if (!pointerInsideNav) scheduleNavHide();
+        }
+        function enterNav() {
+          pointerInsideNav = true;
+          showNav();
+        }
+        function leaveNav() {
+          pointerInsideNav = false;
+          scheduleNavHide();
+        }
+
+        revealZone.addEventListener("pointerenter", enterNav);
+        revealZone.addEventListener("pointerleave", leaveNav);
+        nav.addEventListener("pointerenter", enterNav);
+        nav.addEventListener("pointerleave", leaveNav);
+        nav.addEventListener("focusin", showNav);
+        nav.addEventListener("focusout", scheduleNavHide);
+        window.addEventListener("scroll", syncNav, { passive: true });
+        window.addEventListener("pointermove", trackNavPointer, { passive: true });
+        desktopNav.addEventListener("change", syncNav);
+        syncNav();
+
         if (!window.gsap || !window.ScrollTrigger) return;
         gsap.registerPlugin(ScrollTrigger);
 
@@ -1051,12 +1103,12 @@
         opening
           .set(".opening-panel", { yPercent: 0 })
           .set(".hero-word .mask-line", { yPercent: 115, scaleY: 0.72 })
-          .set(".nav, .hero-meta, .hero-cta, .hero-proof", { autoAlpha: 0, y: 24 })
+          .set(".hero-meta, .hero-cta, .hero-proof", { autoAlpha: 0, y: 24 })
           .to(".opening-mark", { y: 0, autoAlpha: 1, duration: 0.9, ease: "power3.out" })
           .to(".opening-panel", { yPercent: -100, duration: isMobile ? 0.95 : 1.25, delay: 0.18 }, "<")
           .to(".hero-word .mask-line", { yPercent: 0, scaleY: 1, duration: isMobile ? 0.9 : 1.2, stagger: 0.13 }, "-=0.85")
           .to(".hero-bg", { scale: 1, filter: "blur(0px)", duration: 1.8 }, "-=1.4")
-          .to(".nav, .hero-meta, .hero-cta, .hero-proof", { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.08, ease: "power3.out" }, "-=0.8");
+          .to(".hero-meta, .hero-cta, .hero-proof", { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.08, ease: "power3.out" }, "-=0.8");
 
         gsap.utils.toArray(".section").forEach(function (section) {
           var title = section.querySelector(".section-title");
