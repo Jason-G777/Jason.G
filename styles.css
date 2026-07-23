@@ -1655,6 +1655,109 @@ a:focus-visible {
     linear-gradient(160deg, transparent 45%, rgba(215, 25, 32, 0.18));
 }
 
+.section-bridge {
+  position: relative;
+  width: 100%;
+  min-height: clamp(170px, 14vw, 250px);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(215, 25, 32, 0.055) 52%, transparent 100%),
+    linear-gradient(180deg, rgba(8, 3, 3, 0) 0%, rgba(19, 3, 5, 0.74) 50%, rgba(8, 3, 3, 0) 100%);
+}
+
+.section-bridge::before,
+.section-bridge::after {
+  content: "";
+  position: absolute;
+  left: var(--content-gutter);
+  right: var(--content-gutter);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hairline) 8%, var(--hairline) 92%, transparent);
+}
+
+.section-bridge::before {
+  top: 0;
+}
+
+.section-bridge::after {
+  bottom: 0;
+}
+
+.bridge-inner {
+  width: min(var(--max), calc(100% - (var(--content-gutter) * 2)));
+  margin: 0 auto;
+  padding: clamp(30px, 3vw, 48px) 0;
+}
+
+.bridge-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(248, 238, 231, 0.52);
+  font-size: 11px;
+  font-weight: 680;
+  letter-spacing: 0;
+}
+
+.bridge-meta span:last-child {
+  color: #f0494d;
+  font-variant-numeric: tabular-nums;
+}
+
+.bridge-progress {
+  position: relative;
+  height: 1px;
+  margin-top: 14px;
+  overflow: hidden;
+  background: rgba(248, 238, 231, 0.11);
+}
+
+.bridge-progress span {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: linear-gradient(90deg, #8f0d13, #f0494d 52%, rgba(240, 73, 77, 0.2));
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.bridge-title-mask {
+  margin-top: clamp(18px, 2vw, 30px);
+  overflow: hidden;
+}
+
+.bridge-title {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  color: rgba(248, 238, 231, 0.17);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: clamp(58px, 7.4vw, 126px);
+  font-weight: 300;
+  line-height: 0.82;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.section-head {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.section-bridge + .section {
+  padding-top: clamp(82px, 7.5vw, 128px);
+}
+
+.section-bridge + .manifesto-section,
+.section-bridge + .contact-section {
+  margin-top: 0;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .nav-links a:hover,
   .nav-contact:hover,
@@ -2115,6 +2218,42 @@ a:focus-visible {
   .contact-actions a {
     width: 100%;
     height: 54px;
+  }
+
+  .section-bridge {
+    min-height: 132px;
+  }
+
+  .section-bridge::before,
+  .section-bridge::after {
+    left: 18px;
+    right: 18px;
+  }
+
+  .bridge-inner {
+    width: calc(100% - 36px);
+    padding: 24px 0;
+  }
+
+  .bridge-meta {
+    font-size: 10px;
+  }
+
+  .bridge-progress {
+    margin-top: 10px;
+  }
+
+  .bridge-title-mask {
+    margin-top: 16px;
+  }
+
+  .bridge-title {
+    font-size: clamp(44px, 13.5vw, 58px);
+    line-height: 0.9;
+  }
+
+  .section-bridge + .section {
+    padding-top: 70px;
   }
 }
 
