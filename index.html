@@ -848,14 +848,13 @@
         </video>
         <div class="hero-bg" aria-hidden="true"><span></span><span></span><span></span></div>
         <div class="hero-inner">
-          <p class="hero-meta">COPY / PLANNER / STRATEGY</p>
           <h1 class="hero-title" aria-label="广告新生 Creative Planner Portfolio">
             <span class="hero-word"><span class="mask-line shiny-title">广告新生</span></span>
             <span class="hero-word accent"><span class="mask-line shiny-title accent-shine">CREATIVE</span></span>
             <span class="hero-word"><span class="mask-line shiny-title delay-shine">PLANNER</span></span>
           </h1>
           <div class="hero-bottom">
-            <p class="hero-proof">郭家辉 Jason.G / 七楽<br />广告创意策划，关注策略、内容和传播的可落地连接。</p>
+            <p class="hero-proof">郭家辉 Jason.G / 七楽<br />一名努力在这个世界留下好故事的广告创意策划</p>
             <a class="hero-cta" href="#work">查看精选项目</a>
           </div>
         </div>
@@ -1103,12 +1102,12 @@
         opening
           .set(".opening-panel", { yPercent: 0 })
           .set(".hero-word .mask-line", { yPercent: 115, scaleY: 0.72 })
-          .set(".hero-meta, .hero-cta, .hero-proof", { autoAlpha: 0, y: 24 })
+          .set(".hero-cta, .hero-proof", { autoAlpha: 0, y: 24 })
           .to(".opening-mark", { y: 0, autoAlpha: 1, duration: 0.9, ease: "power3.out" })
           .to(".opening-panel", { yPercent: -100, duration: isMobile ? 0.95 : 1.25, delay: 0.18 }, "<")
           .to(".hero-word .mask-line", { yPercent: 0, scaleY: 1, duration: isMobile ? 0.9 : 1.2, stagger: 0.13 }, "-=0.85")
           .to(".hero-bg", { scale: 1, filter: "blur(0px)", duration: 1.8 }, "-=1.4")
-          .to(".hero-meta, .hero-cta, .hero-proof", { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.08, ease: "power3.out" }, "-=0.8");
+          .to(".hero-cta, .hero-proof", { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.08, ease: "power3.out" }, "-=0.8");
 
         gsap.utils.toArray(".section").forEach(function (section) {
           var title = section.querySelector(".section-title");
